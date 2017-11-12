@@ -1,0 +1,105 @@
+[
+  {
+    "name": "folder-A",
+    "content": [
+      {
+        "name": "file-A-37298",
+        "size": "23kB"
+      },
+      {
+        "name": "link-A-22432",
+        "link": "/folder-A"
+      },
+      {
+        "name": "file-A-787978",
+        "size": "78.8kB"
+      },
+      {
+        "name": "link-A-5327",
+        "link": "/folder-A/file-A-37298"
+      }
+    ]
+  },
+  {
+    "name": "folder-B",
+    "content": [
+      {
+        "name": "folder-B-Z",
+        "content": [
+          {
+            "name": "file-B-Z-3432",
+            "size": "11kB"
+          },
+          {
+            "name": "link-B-Z-2280",
+            "link": "/folder-C/file-C-983798"
+          }
+        ]
+      },
+      {
+        "name": "folder-B-X",
+        "content": [
+          {
+            "name": "file-B-X-12312",
+            "size": "768B"
+          },
+          {
+            "name": "link-B-X-87676",
+            "link": "/folder-D"
+          },
+          {
+            "name": "link-B-X-237982",
+            "link": "/folder-A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "folder-C",
+    "content": [
+      {
+        "name": "folder-C-W",
+        "content": [
+          {
+            "name": "file-C-W-32132",
+            "size": "1.6GB"
+          },
+          {
+            "name": "link-C-W-6576",
+            "link": "/folder-B/folder-B-X"
+          }
+        ]
+      },
+      {
+        "name": "folder-C-C",
+        "content": [
+          {
+            "name": "file-C-C-32423",
+            "size": "31231kB"
+          },
+          {
+            "name": "link-C-C-2342",
+            "link": "/folder-C"
+          }
+        ]
+      },
+      {
+        "name": "file-C-983798",
+        "size": "15MB"
+      }
+    ]
+  },
+  {
+    "name": "file-1",
+    "size": "1132kB"
+  },
+  {
+    "name": "file-23432",
+    "size": "1.3MB"
+  },
+  {
+    "name": "file-79898",
+    "size": "12341234"
+  }
+]
