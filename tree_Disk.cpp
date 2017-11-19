@@ -2,6 +2,7 @@
 #include "tree_Disk.h"
 #include "tree_Folder.h"
 #include "tree_Link.h"
+#include <memory>
 
 #include <stack>
 

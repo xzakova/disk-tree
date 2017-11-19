@@ -4,6 +4,7 @@
 
 #include <string>
 #include <ostream>
+#include <memory>
 
 #include "rapidjson/document.h"
 
@@ -20,7 +21,7 @@ namespace tree
 
 		const std::string & Name() const { return _name; }
 
-		static Node * Parse(rapidjson::Value & json);
+		static std::unique_ptr<Node> Parse(rapidjson::Value & json);
 	private:
 		const std::string _name;
 	};

@@ -2,6 +2,7 @@
 #include "tree_Folder.h"
 
 #include <numeric>
+#include <memory>
 
 #ifdef _DEBUG
 #define new DBG_NEW
@@ -81,7 +82,7 @@ Node * Folder::Find(std::sregex_token_iterator iter) const
 	if (++iter == std::sregex_token_iterator())
 		return *itNode;
 
-	auto * folder = dynamic_cast<Folder*>(*itNode);
+	auto folder = dynamic_cast<Folder*>(*itNode);
 
 	return folder ? folder->Find(iter) : nullptr;
 }
@@ -91,14 +92,16 @@ void Folder::Remove(const Node * node)
 	_content.erase(std::remove(_content.begin(), _content.end(), node), _content.end());
 }
 
-Folder * Folder::Parse(rapidjson::Value & json)
+std::unique_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 {
-	Folder * folder = nullptr;
+	std::unique_ptr<Folder> folder=nullptr;
+
 	rapidjson::Value * content = nullptr;
 	if (json.IsArray())
 	{	// root
 		content = &json;
-		folder = new Folder("");
+		folder.reset();
+		std::unique_ptr<Folder> folder(new Folder(""));
 	}
 	else
 	{
@@ -106,7 +109,9 @@ Folder * Folder::Parse(rapidjson::Value & json)
 			return nullptr;
 
 		content = &(json["content"]);
-		folder = new Folder(json["name"].GetString());
+		folder.reset();
+		std::unique_ptr<Folder> folder(new Folder(json["name"].GetString()));
+
 	}
 
 	for (auto & elm : content->GetArray())

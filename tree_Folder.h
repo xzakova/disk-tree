@@ -2,6 +2,7 @@
 
 #include "tree_Node.h"
 
+#include <memory>
 #include <vector>
 #include <regex>
 
@@ -23,7 +24,7 @@ namespace tree
 		Node * Find(const std::string & path) const;
 		Node * Find(std::sregex_token_iterator iter) const;
 
-		static Folder * Parse(rapidjson::Value & json);
+		static std::unique_ptr<Folder> Parse(rapidjson::Value & json);
 
 	private:
 		std::vector<Node*> _content;
