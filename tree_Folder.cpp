@@ -53,6 +53,7 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 void Folder::Insert(std::unique_ptr<Node> && node)
 {
 	_content.push_back(std::move(node));
+
 }
 
 std::shared_ptr<Node> Folder::Find(const std::string & path) const
