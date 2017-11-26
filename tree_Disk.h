@@ -1,8 +1,9 @@
 #pragma once
 
 #include "tree_Folder.h"
+#include <memory>
 
 namespace tree
 {
-	tree::Folder * ParseDisk(rapidjson::Value & json);
+	std::shared_ptr<Folder> ParseDisk(rapidjson::Value & json);
 }

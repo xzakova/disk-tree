@@ -21,8 +21,8 @@ namespace tree
 		void Remove(const Node * node);
 		const std::vector<std::unique_ptr<Node>> & Content() const { return _content; }
 
-		Node * Find(const std::string & path) const;
-		Node * Find(std::sregex_token_iterator iter) const;
+		std::unique_ptr<Node> Find(const std::string & path) const;
+		std::unique_ptr<Node> Find(std::sregex_token_iterator iter) const;
 
 		static std::unique_ptr<Folder> Parse(rapidjson::Value & json);
 

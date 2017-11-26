@@ -16,9 +16,9 @@ tree::Size Folder::Size(bool bFollow, bool bRecursive) const
 		_content.begin(),
 		_content.end(),
 		.0,
-		[bFollow, bRecursive](tree::Size size, const Node * node)
+		[bFollow, bRecursive](tree::Size size, const std::shared_ptr<Node> node)
 		{
-			auto * folder = dynamic_cast<const Folder*>(node);
+			auto * folder = dynamic_cast<const Folder*>(node.get());
 
 			if (folder)
 			{
@@ -37,7 +37,7 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	out << "[" << Name() << "]" << std::endl;
 	for (auto node : _content)
 	{
-		auto * folder = dynamic_cast<const Folder*>(node);
+		auto  folder = dynamic_cast<const Folder*>(node.get());
 		if (!bRecursive && folder)
 		{
 			out << offset << "    " << "[" << folder->Name() << "]" << std::endl;
@@ -55,7 +55,7 @@ void Folder::Insert(std::unique_ptr<Node> && node)
 	_content.push_back(std::move(node));
 }
 
-Node * Folder::Find(const std::string & path) const
+std::unique_ptr<Node> Folder::Find(const std::string & path) const
 {
 	std::regex rgx { "/" };
 	auto start = path.begin();
@@ -65,7 +65,7 @@ Node * Folder::Find(const std::string & path) const
 	return Find({ start, path.end(), rgx, -1 });
 }
 
-Node * Folder::Find(std::sregex_token_iterator iter) const
+std::unique_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 {
 	if (iter == std::sregex_token_iterator())
 		return nullptr;
@@ -82,7 +82,7 @@ Node * Folder::Find(std::sregex_token_iterator iter) const
 	if (++iter == std::sregex_token_iterator())
 		return *itNode;
 
-	auto folder = dynamic_cast<Folder*>(*itNode);
+	auto folder = dynamic_cast<Folder*>((*itNode).get());
 
 	return folder ? folder->Find(iter) : nullptr;
 }

@@ -10,17 +10,18 @@
 #define new DBG_NEW
 #endif
 
-tree::Folder * tree::ParseDisk(rapidjson::Value & json)
+std::shared_ptr<tree::Folder> tree::ParseDisk(rapidjson::Value & json)
 {
 	// parse disk hierarchy
-	Folder * root = dynamic_cast<Folder*>(Folder::Parse(json));
+	std::unique_ptr<Folder> root = Folder::Parse(json);
+
 	if (!root)
 		return nullptr;
 
 	// resolve links
 	std::stack<Folder *> folders;
 
-	folders.push(root);
+	folders.push(root.get());
 
 	while (!folders.empty())
 	{
@@ -29,7 +30,7 @@ tree::Folder * tree::ParseDisk(rapidjson::Value & json)
 
 		for (auto * node : folder->Content())
 		{
-			if (auto * subfolder = dynamic_cast<Folder*>(node))
+			if (auto  subfolder = dynamic_cast<Folder*>(node))
 			{
 				folders.push(subfolder);
 			}
