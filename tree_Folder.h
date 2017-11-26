@@ -19,7 +19,7 @@ namespace tree
 
 		void Insert(std::unique_ptr<Node> &&node);
 		void Remove(const Node * node);
-		const std::vector<std::unique_ptr<Node>> & Content() const { return _content; }
+		const std::vector<std::shared_ptr<Node>> & Content() const { return _content; }
 
 		std::unique_ptr<Node> Find(const std::string & path) const;
 		std::unique_ptr<Node> Find(std::sregex_token_iterator iter) const;
@@ -27,6 +27,6 @@ namespace tree
 		static std::unique_ptr<Folder> Parse(rapidjson::Value & json);
 
 	private:
-		std::vector <std::unique_ptr<Node>> _content;
+		std::vector <std::shared_ptr<Node>> _content;
 	};
 }
