@@ -55,7 +55,7 @@ void Folder::Insert(std::unique_ptr<Node> && node)
 	_content.push_back(std::move(node));
 }
 
-std::unique_ptr<Node> Folder::Find(const std::string & path) const
+std::shared_ptr<Node> Folder::Find(const std::string & path) const
 {
 	std::regex rgx { "/" };
 	auto start = path.begin();
@@ -65,7 +65,7 @@ std::unique_ptr<Node> Folder::Find(const std::string & path) const
 	return Find({ start, path.end(), rgx, -1 });
 }
 
-std::unique_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
+std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 {
 	if (iter == std::sregex_token_iterator())
 		return nullptr;
