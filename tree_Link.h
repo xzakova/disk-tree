@@ -20,7 +20,7 @@ namespace tree
 
 		const std::string & Path() const { return _path; }
 
-		static std::unique_ptr<Link> Parse(rapidjson::Value & json);
+		static std::shared_ptr<Link> Parse(rapidjson::Value & json);
 
 	private:
 		std::weak_ptr<Node> _link;

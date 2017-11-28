@@ -14,8 +14,9 @@ TEST(Disk, Parse)
 	{
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse("[]"));
-
-		std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+		//zmenit vsetky unique na auto vo vsetkych testoch
+		//std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+		auto ptr{ tree::ParseDisk(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 
 		{
@@ -31,7 +32,7 @@ TEST(Disk, Parse)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-		std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+		auto ptr { tree::ParseDisk(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 
 		{

@@ -12,7 +12,7 @@ TEST(File, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "file", "size": ""})"));
 
-		std::unique_ptr<tree::File> ptr { tree::File::Parse(json) };
+		auto ptr { tree::File::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -20,7 +20,7 @@ TEST(File, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"size": "1"})"));
 
-		std::unique_ptr<tree::File> ptr { tree::File::Parse(json) };
+		auto ptr { tree::File::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -28,7 +28,7 @@ TEST(File, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "file", "size": ".5kB"})"));
 
-		std::unique_ptr<tree::File> ptr { tree::File::Parse(json) };
+		auto ptr { tree::File::Parse(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 	}
 }
@@ -38,7 +38,7 @@ TEST(File, List)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "file", "size": ".5kB"})"));
 
-	std::unique_ptr<tree::File> ptr { tree::File::Parse(json) };
+	auto ptr { tree::File::Parse(json) };
 	EXPECT_NE(ptr.get(), nullptr);
 
 	{
@@ -71,7 +71,7 @@ TEST(File, Size)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "file", "size": ".5kB"})"));
 
-	std::unique_ptr<tree::File> ptr { tree::File::Parse(json) };
+	auto ptr { tree::File::Parse(json) };
 	EXPECT_NE(ptr.get(), nullptr);
 
 	EXPECT_DOUBLE_EQ((double)ptr->Size(false, false), 512);

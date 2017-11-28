@@ -50,7 +50,7 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	}
 }
 
-void Folder::Insert(std::unique_ptr<Node> && node)
+void Folder::Insert(std::shared_ptr<Node>  node)
 {
 	_content.push_back(std::move(node));
 
@@ -93,9 +93,9 @@ void Folder::Remove(const Node * node)
 	_content.erase(std::remove(_content.begin(), _content.end(), node), _content.end());
 }
 
-std::unique_ptr<Folder> Folder::Parse(rapidjson::Value & json)
+std::shared_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 {
-	std::unique_ptr<Folder> folder=nullptr;
+	std::shared_ptr<Folder> folder=nullptr;
 	
 	rapidjson::Value * content = nullptr;
 	
@@ -103,8 +103,7 @@ std::unique_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 	{	// root
 		content = &json;
 		
-		folder.reset();
-		std::unique_ptr<Folder> folder(new Folder(""));
+		folder.reset(new Folder(""));
 	}
 	else
 	{
@@ -112,15 +111,14 @@ std::unique_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 			return nullptr;
 
 		content = &(json["content"]);
-		folder.reset();
-		std::unique_ptr<Folder> folder(new Folder(json["name"].GetString()));
+		folder.reset(new Folder(json["name"].GetString()));
 
 	}
 
 	for (auto & elm : content->GetArray())
 	{
 		//auto pNode = Node::Parse(elm);
-		std::unique_ptr<Node> pNode = Node::Parse(elm);
+		std::shared_ptr<Node> pNode = Node::Parse(elm);
 		
 		if (!pNode)
 			return nullptr;

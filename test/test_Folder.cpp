@@ -16,7 +16,7 @@ TEST(Folder, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "folder"})"));
 
-		std::unique_ptr<tree::Folder> ptr { tree::Folder::Parse(json) };
+		auto ptr { tree::Folder::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -24,7 +24,7 @@ TEST(Folder, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"content": []})"));
 
-		std::unique_ptr<tree::Folder> ptr { tree::Folder::Parse(json) };
+		auto ptr { tree::Folder::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -32,7 +32,7 @@ TEST(Folder, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "folder", "content": []})"));
 
-		std::unique_ptr<tree::Folder> ptr { tree::Folder::Parse(json) };
+		auto ptr { tree::Folder::Parse(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 	}
 
@@ -40,7 +40,7 @@ TEST(Folder, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"([])"));
 
-		std::unique_ptr<tree::Folder> ptr { tree::Folder::Parse(json) };
+		auto ptr { tree::Folder::Parse(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 	}
 }
@@ -50,7 +50,7 @@ TEST(Folder, Size)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+	auto ptr { tree::ParseDisk(json) };
 	EXPECT_NE(ptr.get(), nullptr);
 
 	EXPECT_DOUBLE_EQ((double)ptr->Size(false, false), 4);
@@ -67,7 +67,7 @@ TEST(Folder, List)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+	auto ptr { tree::ParseDisk(json) };
 	EXPECT_NE(ptr.get(), nullptr);
 
 	{
@@ -170,7 +170,7 @@ TEST(Folder, Operations)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	std::unique_ptr<tree::Folder> ptr { tree::ParseDisk(json) };
+	auto ptr { tree::ParseDisk(json) };
 	EXPECT_NE(ptr.get(), nullptr);
 
 	EXPECT_EQ(ptr->Content().size(), 5);
@@ -181,7 +181,7 @@ TEST(Folder, Operations)
 	auto node = ptr->Find("/file-X");
 	EXPECT_NE(node, nullptr);
 
-	ptr->Remove(node);
+	ptr->Remove(node.get());
 	EXPECT_EQ(ptr->Find("/file-X"), nullptr);
 
 	ptr->Insert(node);
