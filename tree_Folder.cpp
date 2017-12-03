@@ -50,15 +50,15 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	}
 }
 
-void Folder::Insert(std::shared_ptr<Node>  node)
+void Folder::Insert(std::shared_ptr<Node> && node)
 {
-	_content.push_back(std::move(node));
+	_content.push_back(node);
 
 }
 
 std::shared_ptr<Node> Folder::Find(const std::string & path) const
 {
-	std::regex rgx { "/" };
+	std::regex rgx{ "/" };
 	auto start = path.begin();
 	if (*start == '/')
 		++start;
@@ -71,7 +71,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 	if (iter == std::sregex_token_iterator())
 		return nullptr;
 
-	auto itNode = std::find_if(_content.begin(), _content.end(), [&iter](Node * node)
+	auto itNode = std::find_if(_content.begin(), _content.end(), [&iter](auto node)
 	{
 		return node->Name() == *iter;
 	}
@@ -83,7 +83,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 	if (++iter == std::sregex_token_iterator())
 		return *itNode;
 
-	auto folder = dynamic_cast<Folder*>((*itNode).get());
+	auto * folder = dynamic_cast<Folder*>(itNode->get());
 
 	return folder ? folder->Find(iter) : nullptr;
 }
@@ -118,12 +118,12 @@ std::shared_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 	for (auto & elm : content->GetArray())
 	{
 		//auto pNode = Node::Parse(elm);
-		std::shared_ptr<Node> pNode = Node::Parse(elm);
+		auto pNode = Node::Parse(elm);
 		
 		if (!pNode)
 			return nullptr;
 
-		folder->Insert(pNode);
+		folder->Insert(std::move(pNode));
 	}
 
 	return folder;

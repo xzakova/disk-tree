@@ -184,6 +184,6 @@ TEST(Folder, Operations)
 	ptr->Remove(node.get());
 	EXPECT_EQ(ptr->Find("/file-X"), nullptr);
 
-	ptr->Insert(node);
+	ptr->Insert(std::move(node));
 	EXPECT_NE(ptr->Find("/file-X"), nullptr);
 }

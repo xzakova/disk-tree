@@ -21,7 +21,7 @@ namespace tree
 
 		const std::string & Name() const { return _name; }
 
-		static std::unique_ptr<Node> Parse(rapidjson::Value & json);
+		static std::shared_ptr<Node> Parse(rapidjson::Value & json);
 	private:
 		const std::string _name;
 	};

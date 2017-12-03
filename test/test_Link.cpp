@@ -17,7 +17,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "link"})"));
 
-		auto ptr { tree::Link::Parse(json) };
+		auto ptr{ tree::Link::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -25,7 +25,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"link": ""})"));
 
-		auto ptr { tree::Link::Parse(json) };
+		auto ptr{ tree::Link::Parse(json) };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -33,7 +33,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "link", "link": ""})"));
 
-		auto ptr { tree::Link::Parse(json) };
+		auto ptr{ tree::Link::Parse(json) };
 		EXPECT_NE(ptr.get(), nullptr);
 	}
 }
@@ -43,7 +43,7 @@ TEST(Link, Size)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	auto folder { tree::ParseDisk(json) };
+	auto folder{ tree::ParseDisk(json) };
 	EXPECT_NE(folder.get(), nullptr);
 
 	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z").get());
@@ -57,7 +57,7 @@ TEST(Link, Size)
 
 	EXPECT_DOUBLE_EQ((double)link->Size(true, true), 8);
 
-	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z").get());
+	link = dynamic_cast<tree::Link*>(folder->Find("/link-Y").get());
 	EXPECT_NE(link, nullptr);
 
 	EXPECT_DOUBLE_EQ((double)link->Size(false, false), 0);
@@ -74,7 +74,7 @@ TEST(Link, List)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	auto folder { tree::ParseDisk(json) };
+	auto folder{ tree::ParseDisk(json) };
 	EXPECT_NE(folder.get(), nullptr);
 
 	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z").get());
@@ -129,7 +129,7 @@ TEST(Link, List)
 		EXPECT_STREQ(str.str().c_str(), "link-Z -X-> /folder-A/file-A-S\n");
 	}
 
-	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z").get());
+	link = dynamic_cast<tree::Link*>(folder->Find("/link-Y").get());
 	EXPECT_NE(link, nullptr);
 
 	{

@@ -12,7 +12,7 @@
 
 using namespace tree;
 
-std::unique_ptr<Node> Node::Parse(rapidjson::Value & json)
+std::shared_ptr <Node> Node::Parse(rapidjson::Value & json)
 {
 	if (json.HasMember("size"))
 	{

@@ -17,7 +17,7 @@ namespace tree
 		tree::Size Size(bool bFollow, bool bRecursive) const override;
 		void List(bool bFollow, bool bRecursive, const std::string & offset, std::ostream & out) const override;
 
-		void Insert(std::shared_ptr<Node>  node);
+		void Insert(std::shared_ptr<Node> && node);
 		void Remove(const Node * node);
 		const std::vector<std::shared_ptr<Node>> & Content() const { return _content; }
 
