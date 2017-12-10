@@ -21,7 +21,7 @@ Handler cmd::List(const Options & options)
 
 		if (std::holds_alternative<Node*>(root))
 			std::get<Node*>(root)->List(bFollow, bRecursive, "", out);
-
+			
 		return true;
 	};
 }

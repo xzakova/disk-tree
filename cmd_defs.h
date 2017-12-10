@@ -18,5 +18,7 @@ namespace cmd
 		bool bFollow;
 		bool bRecursive;
 		std::string path;
+		std::string size;
+		std::string name;
 	};
 }

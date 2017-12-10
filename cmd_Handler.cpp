@@ -27,6 +27,16 @@ Handler cmd::GetHandler(const std::string & line)
 			return Size(args.value().second);
 		case Command::List:
 			return List(args.value().second);
+
+
+		case Command::MkDir:
+			return Mkdir(args.value().second); 
+		case Command::Remove:
+			return Rm(args.value().second);
+		case Command::Link:
+			return Link(args.value().second);
+		case Command::Touch:
+			return Touch(args.value().second);
 	}
 
 	return nullptr;

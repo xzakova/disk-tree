@@ -170,10 +170,14 @@
     <ClCompile Include="app.cpp" />
     <ClCompile Include="cmd_Handler.cpp" />
     <ClCompile Include="cmd_Help.cpp" />
+    <ClCompile Include="cmd_link.cpp" />
     <ClCompile Include="cmd_List.cpp" />
+    <ClCompile Include="cmd_mkdir.cpp" />
     <ClCompile Include="cmd_Parse.cpp" />
     <ClCompile Include="cmd_Quit.cpp" />
+    <ClCompile Include="cmd_rm.cpp" />
     <ClCompile Include="cmd_Size.cpp" />
+    <ClCompile Include="cmd_touch.cpp" />
     <ClCompile Include="tree_Disk.cpp" />
     <ClCompile Include="tree_File.cpp" />
     <ClCompile Include="tree_Folder.cpp" />

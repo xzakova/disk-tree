@@ -18,4 +18,8 @@ namespace cmd
 	Handler Size(const Options & options);
 	Handler List(const Options & options);
 
+	Handler Mkdir(const Options & options);
+	Handler Rm(const Options & options);
+	Handler Link(const Options & options);
+	Handler Touch(const Options & options);
 }
