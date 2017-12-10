@@ -90,7 +90,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 
 void Folder::Remove(const Node * node)
 {
-	_content.erase(std::remove(_content.begin(), _content.end(), node), _content.end());
+	_content.erase(std::remove_if(_content.begin(), _content.end(), [node](auto ptr) { return ptr.get() == node; }), _content.end());
 }
 
 std::shared_ptr<Folder> Folder::Parse(rapidjson::Value & json)

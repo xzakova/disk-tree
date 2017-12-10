@@ -20,7 +20,7 @@ Handler cmd::GetHandler(const std::string & line)
 	switch (args.value().first)
 	{
 		case Command::Help:
-			return Help;
+			return Help(args.value().second);
 		case Command::Quit:
 			return Quit;
 		case Command::Size:
